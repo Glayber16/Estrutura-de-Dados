@@ -33,5 +33,6 @@ int main (){
     //     }
     //     cout << " O resultado :" << som << '\n';
     // }
-    cout << par() + som ;
+    int result = par() + som;
+    cout << result;
 }
