@@ -6,18 +6,22 @@ int main () {
     double media, soma;
     double menos, mais;
     double desvio;
-    double valor[5];
+    int n;
+    cout << "Digite o tamanho do vetor \n"; 
+    
+    cin >> n;
+    double valor[n];
 
-    for (int i = 0; i < 5; i++){
+    for (int i = 0; i < n; i++){
         cout << "Digite o " << i + 1 << " valor \n";
         cin >> valor[i];
         soma = valor[i] + soma;
-        media = soma/5;
+        media = soma/n;
     }
 
     cout << media << "\n";
 
-    for (int i = 0; i < 5; i++){
+    for (int i = 0; i < n; i++){
         menos = valor[i] - media;
         
         if(menos < 0){
@@ -25,7 +29,7 @@ int main () {
         }
     
         mais = mais + menos;
-        desvio = mais/5;
+        desvio = mais/n;
 
     }
 
