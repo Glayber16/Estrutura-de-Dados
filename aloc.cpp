@@ -1,39 +1,47 @@
 #include <iostream>
+#include <new> 
 
 using namespace std;
 
 int main () {
-    int n, a = 0;
-    int ver = 1;
 
-    double *v = new double [ver];
-    for(int i = 0;; i++){
+    int tam = 1;
+    int n = 0;
 
-        
+    double *v = new double [tam];
+    while(true){
         cout <<" Digite os valores do vetor ou um negativo para parar: \n";
-        cin >> n;
 
-        if(n < 0) {
-            break;
-        }
-        if (a == ver){
-            int novo = ver + 1;
+        int i;
+        
+        cin >> i;
+
+        if(i < 0)  break;
+        
+
+        if (n == tam){
+            int novo = tam + 1;
             double *p = new double [novo];
-            for(int j = 0; j < a; j++) {
+            for(int j = 0; j < n; j++) {
                 p[j] = v[j];
+            }
                 delete[] v; 
                 v = p;
-                ver = novo;
-            }
+                tam = novo;
+            
         }
-        v[i] = n;
+                      
+            v[n] = i;
+            n++;
         
-        a++;
     }
-    a = ver ;
-    for(int i = a-1; 0 <= i; i--){
-        cout <<"os valores do vetor: " << v[i] << "\n";
+
+
+    for(int j = n-1; j >= 0; j--){
+        cout <<"os valores do vetor: " << v[j] << "\n";
     }
-   
+
+   delete[] v;
 }
+
 // tentar try catch depois//
