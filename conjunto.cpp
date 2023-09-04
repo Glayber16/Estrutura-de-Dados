@@ -2,33 +2,32 @@
 
 using namespace std;
 
-// int procura (double *v, int x, int tam){
-//     for(int i = 0; i < tam; i++){
-//         if(x == v[i]){
-//             return true;
-//         }
-//     }
-// }
+int procura(double *v, int n, int tam){
+    for(int i = 0; i < tam; i++){
+        if(n == v[i]){
+            return i;
+        }
+    }
+    return -1;
+}
 
 
 
 int main () {
-    bool tr = true; 
     int tam = 1;
     int a = 0; // verificador de tamanho//
     int ver; // verificador de ação//
     double *v = new double [tam];
-
+    
     while(true){
         cout << "Digite 1 para inserir, 2 para remover e 3 para parar\n";
         cin >> ver;
-
+        
         if(ver == 1){
             int n;
             cout << "Digite o valor que quer inserir \n";
             cin >> n;
-            
-            
+            int tr = procura(v,n,tam);
             if(a == tam){
                 int novo = tam + 1;
                 double *p = new double [novo];
@@ -39,8 +38,14 @@ int main () {
                     v = p;
                     tam = novo;
             }
-            v[a] = n; 
-            a++;
+            if(tr < 0){
+                v[a] = n; 
+                a++;
+            }
+            else{
+                cout << "Nao pode numero repetido\n";
+            }
+            
                 
         }
         
@@ -48,20 +53,23 @@ int main () {
            int n;
             cout << "Digite o valor que quer remover \n";
             cin >> n;
-
-            for(int i = 0; i<a; i++){
-                if(n == v[i]){
-                    for(int j = i; j<a; j++){
-                        v[i] = v[i+1];
-                    }
-                    
-                }
+            int tr = procura(v,n,tam);
+            if(tr < 0){
+                cout << "nao e possivel remover se nao estiver no conjunto\n";
             }
-             for(int i = 0; i<a; i++){
-                if(n != v[i]){
-                    cout << "nao pode ser removido\n";
+            else{
+                if(tr > tam/2){
+                for(int i = tr; i < tam; i++){
+                    int j = v[i];
+                    v[i] = v[i+1];
+                    v[n] = j;
                 }
+                }
+                a--;
             }
+                
+            
+            
         }
                 
         if(ver == 3) {
@@ -74,7 +82,7 @@ int main () {
         }
 
         for(int k = 0; k < a; k++){
-            cout << "Conteudo do conjunto: " << v[k] << "\n";
+            cout << "Conteudo do conjunto na posicao "<< k << ": " << v[k] << "\n";
         }
 
     }
