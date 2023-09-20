@@ -4,26 +4,25 @@
 using namespace std;
 
 struct conjunto{
-    double *v;
     int tam;
     int n;
+    double *v;
 
     conjunto(){
-        cout << "Construtor\n";
-        v = new double [1];
         tam = 1;
         n = 0;
+        v = new double [1];
     }
+
     ~conjunto(){
-        cout << "Destrutor";
         delete[] v;
     }
 
     void inserir(double num){
-        if(tam == n){
-            int novo = tam *2;
+        if(n == tam){
+            int novo = tam * 2;
             double *w = new double [novo];
-            for(int i = 0; i<n; i++){
+            for(int i = 0; i < n; i++){
                 w[i] = v[i];
             }
             delete[] v;
@@ -33,73 +32,90 @@ struct conjunto{
         v[n] = num;
         n++;
     }
-    int procurar(double num){
-        for(int i = 0; i<n; i++){
+
+    int procura(double num){
+        for(int i = 0; i < n; i++){
             if(v[i] == num){
                 return i;
             }
         }
         return -1;
     }
-    void remover(int j){
-        for(int i = j +1; i<n; i++){
-            v[i - 1] = v[i];
+    
+
+    void remover(double num){
+        int pr = procura(num);
+        for(int i = pr + 1; i<n; i++){
+            v[i-1] = v[i];
         }
         n--;
+        if(n == tam/4){
+            int novo = tam/2;
+            double *w = new double [novo];
+            for(int i = 0; i < n; i++){
+                w[i] = v[i];
+            }
+            delete[] v;
+            v = w;
+            tam = novo;
+        }
     }
-    void imprime(){
-        cout << "Os valores do vetor: ";
-        for(int i = 0; i<n; i++){
-            cout<< " " << v[i];
+
+    void imprimir(){
+        cout << "Os valores do vetor:";
+        for(int i = 0; i < n; i++){
+            cout << " " << v[i];
         }
         cout << "\n";
-    }
+   }
 };
 
-int main() {
+int main () {
     try{
         conjunto conj;
         while(true){
             cout << "1-inserir, 2-remover, 3-printar, 4-parar\n";
-            int ac;
-            cin >> ac;
-
-            if(ac==1){
-                cout << "Digite o valor a ser inserido\n";
-                int num;
+            int a;
+            cin>> a;
+            int num;
+            if(a==1){
+                cout << "Inserir escolhido\n";
                 cin >> num;
-                if(conj.procurar(num) < 0){
+                int pr = conj.procura(num);
+                if(pr < 0){
                     conj.inserir(num);
                 }
                 else{
-                    cout << "Nao repetir num\n";
+                    cout << "Sem numero repetido\n";
                 }
             }
 
-            if(ac==2){
-                cout << "Digite o valor a ser retirado\n";
-                int re;
-                cin >> re;
-                if(conj.procurar(re) < 0){
-                    cout << "Valor nao esta no vetor\n";
+            if(a==2){
+                cout << "Remocao escolhida\n";
+                cin >> num;
+                int pr = conj.procura(num);
+                if (pr < 0){
+                    cout << "Valor nao encontrado\n";
                 }
                 else{
-                    conj.remover(conj.procurar(re));
+                    conj.remover(num);
                 }
             }
-            if(ac==3){
-                conj.imprime();
-            }
-            if(ac==4){
-                cout << "encerrando programa\n";
-                break;
+
+            if(a == 3){
+                conj.imprimir();
             }
 
+            if(a == 4){
+                cout << "Encerrando o programa";
+                break;
+            }
         }
     }
 
-    catch(const bad_alloc &excecao){
-        cout<< "Deu ruim glr\n";
-        return 1;
-    }
+   catch(const bad_alloc &excecao){
+    cout<< "Falha\n";
+    return 1;
+   }
+
 }
