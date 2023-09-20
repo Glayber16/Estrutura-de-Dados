@@ -29,7 +29,7 @@ int main () {
             cin >> n;
             int tr = procura(v,n,tam);
             if(a == tam){
-                int novo = tam + 1;
+                int novo = tam * 2;
                 double *p = new double [novo];
                 for(int j = 0; j < a; j++) {
                     p[j] = v[j];
@@ -58,13 +58,11 @@ int main () {
                 cout << "nao e possivel remover se nao estiver no conjunto\n";
             }
             else{
-                if(tr > tam/2){
-                for(int i = tr; i < tam; i++){
-                    int j = v[i];
-                    v[i] = v[i+1];
-                    v[n] = j;
+                
+                for(int i = tr + 1; i < tam; i++){
+                    v[i - 1] = v[i];
                 }
-                }
+                
                 a--;
             }
                 
@@ -86,5 +84,5 @@ int main () {
         }
 
     }
-
+    delete[] v;
 }
