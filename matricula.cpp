@@ -5,18 +5,30 @@ using namespace std;
 
 
 struct aluno{
+    double *v;
+    int tam;
+    int n;
     int matricula;
-    double media;
-    aluno (){
+    int media;
+
+    aluno(){
+        cout << "Construtor\n";
+        v = new double [1];
+        tam = 1;
+        n = 0;
         matricula = 0;
         media = 0;
     }
+
+    ~aluno(){
+        cout<< "Destrutor\n";
+        delete[] v;
+    }
+  
 };
 
-
 int main () {
-    int tam = 1;
-    int n = 0;
-    aluno  aluno;
-   
+    cout << "antes de inicializar\n";
+    aluno vet;
+    cout << "Depois de inicializar\n";
 }
